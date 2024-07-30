@@ -1,0 +1,37 @@
+stock-prediction-app/
+├── data/
+│   ├── raw/                   # Raw data files
+│   ├── processed/             # Processed data files
+├── notebooks/                 # Jupyter Notebooks for EDA, model training
+├── scripts/                   # Python scripts
+│   ├── data_preprocessing.py  # Data cleaning and preprocessing
+│   ├── feature_engineering.py # Feature extraction and engineering
+│   ├── model_training.py      # Model training scripts
+│   ├── model_evaluation.py    # Model evaluation and validation
+│   ├── reinforcement_learning.py # Reinforcement learning for trading strategy
+│   ├── time_series_forecasting.py  # Time series forecasting
+│   ├── ann_model.py               # Artificial Neural Network model
+│   ├── logistic_regression.py      # Logistic Regression model
+│   ├── decision_tree.py            # Decision Tree model
+│   ├── random_forest.py            # Random Forest model
+│   ├── svm_model.py                # Support Vector Machine model
+│   ├── utils.py               # Utility functions
+├── models/                    # Saved models
+├── requirements.txt           # List of dependencies
+├── README.md                  # Project documentation
+├── setup.py                   # Script to install the application as a package
+├── .gitignore                 # Git ignore file
+├── live_data/
+│   ├── data_fetcher.py        # Script to fetch live data
+│   ├── db_connector.py        # Database connection and storage script
+│   ├── model_updater.py       # Script to update and retrain the model
+└── app/                       # Web/Android application code
+    ├── web/                   # Web application
+    │   ├── static/            # Static files (CSS, JS)
+    │   ├── templates/         # HTML templates
+    │   ├── app.py             # Flask/Django app code
+    │   ├── requirements.txt   # Web application dependencies
+    │   └── .gitignore         # Git ignore file
+    └── android/               # Android application
+        ├── app/              # Android app code
+        └── build.gradle     # Gradle build file

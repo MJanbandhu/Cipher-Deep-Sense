@@ -1,0 +1,4 @@
+2. For Android, open the project in Android Studio and run the app on an emulator or device.
+
+## License
+This project is licensed under the MIT License.
