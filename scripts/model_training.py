@@ -31,3 +31,16 @@ def train_model(df):
 if __name__ == "__main__":
     df = pd.read_csv('../data/processed/stock_data_features.csv')
     train_model(df)
+
+
+
+import hashlib
+
+def get_file_checksum(file_path):
+    with open(file_path, 'rb') as f:
+        file_hash = hashlib.sha256()
+        while chunk := f.read(8192):
+            file_hash.update(chunk)
+    return file_hash.hexdigest()
+
+model_checksum = get_file_checksum('model.h5')

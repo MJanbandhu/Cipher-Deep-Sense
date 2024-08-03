@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Prediction</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .forecast {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 300px;
+        }
+        .historical-data {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 300px;
+        }
+        .model-predictions {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            width: 300px;
+        }
+        .chart {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 500px;
+            height: 300px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .positive {
+            color: blue;
+        }
+        .negative {
+            color: red;
+        }
+        .neutral {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Stock Prediction</h1>
+    </div>
+
+    <div class="forecast">
+        <h2>Forecasts</h2>
+        <p>Next 5 Seconds: <span class="{{ 'positive' if forecast_5s >= 0 else 'negative' }}">{{ forecast_5s }}</span></p>
+        <p>Next 20 Seconds: <span class="{{ 'positive' if forecast_20s >= 0 else 'negative' }}">{{ forecast_20s }}</span></p>
+        <p>Next 3 Minutes: <span class="{{ 'positive' if forecast_3m >= 0 else 'negative' }}">{{ forecast_3m }}</span></p>
+    </div>
+
+    <div class="historical-data">
+        <h2>Recent Data</h2>
+        <h3>Last 10 Seconds</h3>
+        <table>
+            <tr>
+                <th>Time</th>
+                <th>Open</th>
+                <th>High</th>
+                <th>Low</th>
+                <th>Close</th>
+                <th>Volume</th>
+            </tr>
+            {% for index, row in recent_data_10s.iterrows() %}
+            <tr>
+                <td>{{ row['time'] }}</td>
+                <td>{{ row['open'] }}</td>
+                <td>{{ row['high'] }}</td>
+                <td>{{ row['low'] }}</td>
+                <td>{{ row['close'] }}</td>
+                <td>{{ row['volume'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h3>Last 2 Minutes</h3>
+        <table>
+            <tr>
+                <th>Time</th>
+                <th>Open</th>
+                <th>High</th>
+                <th>Low</th>
+                <th>Close</th>
+                <th>Volume</th>
+            </tr>
+            {% for index, row in recent_data_2m.iterrows() %}
+            <tr>
+                <td>{{ row['time'] }}</td>
+                <td>{{ row['open'] }}</td>
+                <td>{{ row['high'] }}</td>
+                <td>{{ row['low'] }}</td>
+                <td>{{ row['close'] }}</td>
+                <td>{{ row['volume'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="model-predictions">
+        <h2>Model Predictions</h2>
+        <h3>Current Predictions</h3>
+        <p>ANN: <span class="{{ 'positive' if ann_predictions >= 0 else 'negative' }}">{{ ann_predictions }}</span></p>
+        <p>Logistic Regression: <span class="{{ 'positive' if logistic_predictions >= 0 else 'negative' }}">{{ logistic_predictions }}</span></p>
+        <p>Decision Tree: <span class="{{ 'positive' if decision_tree_predictions >= 0 else 'negative' }}">{{ decision_tree_predictions }}</span></p>
+        <p>Random Forest: <span class="{{ 'positive' if random_forest_predictions >= 0 else 'negative' }}">{{ random_forest_predictions }}</span></p>
+        <p>SVM: <span class="{{ 'positive' if svm_predictions >= 0 else 'negative' }}">{{ svm_predictions }}</span></p>
+        
+        <h3>Past Predictions</h3>
+        <p>ANN Past: <span class="{{ 'positive' if ann_predictions_past >= 0 else 'negative' }}">{{ ann_predictions_past }}</span></p>
+        <p>Logistic Regression Past: <span class="{{ 'positive' if logistic_predictions_past >= 0 else 'negative' }}">{{ logistic_predictions_past }}</span></p>
+        <p>Decision Tree Past: <span class="{{ 'positive' if decision_tree_predictions_past >= 0 else 'negative' }}">{{ decision_tree_predictions_past }}</span></p>
+        <p>Random Forest Past: <span class="{{ 'positive' if random_forest_predictions_past >= 0 else 'negative' }}">{{ random_forest_predictions_past }}</span></p>
+        <p>SVM Past: <span class="{{ 'positive' if svm_predictions_past >= 0 else 'negative' }}">{{ svm_predictions_past }}</span></p>
+    </div>
+
+    <div class="chart">
+        <h2>Prediction Chart</h2>
+        <img src="{{ url_for('static', filename='chart.png') }}" alt="Prediction Chart">
+    </div>
+</body>
+</html>
